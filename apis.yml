@@ -2,7 +2,7 @@ aid: century-communities
 url: https://raw.githubusercontent.com/api-evangelist/century-communities/refs/heads/main/apis.yml
 name: Century Communities
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Real Estate
   - Homebuilding
@@ -17,7 +17,7 @@ apis:
     tags:
       - Real Estate
       - Homebuilding
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://api.centurycommunities.com
     humanURL: https://developer.centurycommunities.com
     properties:
