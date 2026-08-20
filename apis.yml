@@ -16,6 +16,9 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/century-communities.png
 tags:
+  - Real-Estate
+  - Homebuilding
+tags_raw:
   - Real Estate
   - Homebuilding
 description: >-
@@ -27,6 +30,9 @@ apis:
   - aid: century-communities:century-communities-api
     name: Century Communities API
     tags:
+      - Real-Estate
+      - Homebuilding
+    tags_raw:
       - Real Estate
       - Homebuilding
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
