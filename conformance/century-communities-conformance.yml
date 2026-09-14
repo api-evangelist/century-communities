@@ -1,0 +1,115 @@
+generated: '2026-09-14'
+method: probed
+source: >-
+  Live probes of https://www.centurycommunities.com/.well-known/openid-configuration,
+  /.well-known/oauth-authorization-server, /.well-known/jwks and
+  /api/episerver/v3.0/* on 2026-09-14. Century Communities publishes no compliance or
+  standards page for its API surface, so no prose claim was available to search; every
+  entry below is asserted from a served document or an observed response.
+provider: Century Communities
+providerId: century-communities
+conformance:
+  - id: oidc
+    label: OpenID Connect Discovery 1.0
+    conforms: true
+    evidence: >-
+      https://www.centurycommunities.com/.well-known/openid-configuration returns HTTP 200,
+      application/json, with issuer, authorization_endpoint, token_endpoint,
+      userinfo_endpoint, jwks_uri, response_types_supported, subject_types_supported and
+      id_token_signing_alg_values_supported — every REQUIRED member of the discovery
+      metadata. Probed 2026-09-14.
+  - id: oauth2
+    label: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: true
+    evidence: >-
+      https://www.centurycommunities.com/.well-known/oauth-authorization-server returns
+      HTTP 200 with a byte-identical metadata document. Probed 2026-09-14.
+  - id: oauth2-pkce
+    label: PKCE (RFC 7636)
+    conforms: true
+    evidence: >-
+      code_challenge_methods_supported declares ["S256"] in the served discovery document.
+      The plain method is not offered.
+  - id: jwks
+    label: JSON Web Key Set (RFC 7517)
+    conforms: true
+    evidence: >-
+      https://www.centurycommunities.com/.well-known/jwks returns HTTP 200 with two RSA
+      signing keys (kty RSA, use sig, alg RS256) carrying x5c chains and x5t thumbprints.
+  - id: rfc9457
+    label: Problem Details for HTTP APIs (RFC 9457)
+    conforms: true
+    partial: true
+    evidence: >-
+      GET /api/episerver/v3.0/content/999999999 returned HTTP 404 with Content-Type
+      application/problem+json and a body carrying type, title, status, detail, instance,
+      traceId and code. Marked partial because the same endpoint answers a non-numeric id
+      with an HTML 404 page rather than a problem document.
+  - id: rfc6749-errors
+    label: OAuth 2.0 error response (RFC 6749 §5.2)
+    conforms: true
+    evidence: >-
+      POST /api/episerver/connect/token without client_id returned HTTP 401 with
+      {"error":"invalid_client","error_description":...,"error_uri":...}.
+  - id: rfc7232
+    label: Conditional requests (RFC 9110 / RFC 7232)
+    conforms: true
+    evidence: >-
+      GET /api/episerver/v3.0/site returns an ETag; a repeat request carrying If-None-Match
+      with that value returned HTTP 304 on 2026-09-14.
+  - id: w3c-trace-context
+    label: W3C Trace Context
+    conforms: true
+    partial: true
+    evidence: >-
+      Every problem+json body carries traceId in traceparent format
+      (00-<32 hex>-<16 hex>-00). The server does not, however, return a traceparent
+      response header, so the value is only reachable on error.
+  - id: pagination
+    label: Documented pagination
+    conforms: false
+    evidence: >-
+      GET /api/episerver/v3.0/content returns a bare JSON array with no envelope, cursor,
+      total, or Link header.
+  - id: idempotency
+    label: Idempotency keys on writes
+    conforms: false
+    applicable: false
+    evidence: >-
+      No public write surface. POST /api/episerver/v3.0/content returned 405 and DELETE
+      /api/episerver/v3.0/content/5 returned 405 on 2026-09-14.
+  - id: api-catalog
+    label: RFC 9727 api-catalog
+    conforms: false
+    evidence: /.well-known/api-catalog returned HTTP 404 on every host probed 2026-09-14.
+  - id: rfc9116
+    label: security.txt (RFC 9116)
+    conforms: false
+    evidence: /.well-known/security.txt returned HTTP 404 on every host probed 2026-09-14.
+domain_standard:
+  declared: false
+  candidates_considered:
+    - id: reso-web-api
+      label: RESO Web API / RESO Data Dictionary
+      considered_because: >-
+        RESO is the machine-readable standard of the US residential real-estate market and
+        is the first thing worth probing for a homebuilder.
+      found: false
+      evidence: >-
+        The only contract this company serves is an Optimizely CMS content API. Its payloads
+        carry Optimizely content-model names (contentLink, contentType, siteSettings,
+        contentRoots), not RESO Data Dictionary resources (Property, Member, Office,
+        Media) and no OData $metadata surface, which the RESO Web API is built on. Century
+        Communities sells the homes it builds directly rather than syndicating listings
+        through an MLS, so there is no RESO membership signal either.
+  note: >-
+    REWARD-ONLY check, correctly scoring nothing here. No domain standard is declared in
+    the contract and none is invented to fill the slot.
+compliance_programs:
+  published: false
+  evidence: >-
+    No trust center, no certification page, and no security.txt were found on any Century
+    Communities host on 2026-09-14. probe-security-programs.py returned vdp=none trust=none.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

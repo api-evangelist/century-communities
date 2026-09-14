@@ -1,0 +1,101 @@
+generated: '2026-09-14'
+method: probed
+source: >-
+  Live unauthenticated requests to https://www.centurycommunities.com/api/episerver/v3.0/*
+  and https://www.centurycommunities.com/api/episerver/connect/token on 2026-09-14. Century
+  Communities publishes no error reference, so every entry below is a response body that
+  was actually returned to this probe and is reproduced verbatim.
+provider: Century Communities
+providerId: century-communities
+format: rfc9457
+media_type: application/problem+json
+envelope:
+  fields:
+    - name: type
+      description: >-
+        A URI identifying the problem type. Observed values point at RFC 9110 status-code
+        sections rather than at provider-specific documentation, which is the ASP.NET Core
+        default rather than a curated registry.
+    - name: title
+      description: Short human-readable summary of the problem type.
+    - name: status
+      description: HTTP status code, duplicated into the body.
+    - name: detail
+      description: Human-readable explanation specific to this occurrence.
+    - name: instance
+      description: The request path that produced the problem. Present on some responses, absent on others.
+    - name: traceId
+      description: >-
+        W3C Trace Context traceparent value. Present on every problem response observed and
+        usable as a correlation id when contacting the company.
+    - name: code
+      description: >-
+        Short symbolic code. Observed on the 404 from the content endpoint; absent from the
+        500. Not consistently populated.
+problem_types:
+  - status: 404
+    type: https://tools.ietf.org/html/rfc9110#section-15.5.5
+    title: Not Found
+    code: NotFound
+    detail_observed: Content not found
+    instance_observed: /api/episerver/v3.0/content/999999999
+    evidence:
+      url: https://www.centurycommunities.com/api/episerver/v3.0/content/999999999
+      status: 404
+      content_type: application/problem+json; charset=utf-8
+    remediation: >-
+      The content id does not exist, or is not published to the anonymous audience. Resolve
+      an id from /api/episerver/v3.0/content?contentUrl=<page url> before fetching it.
+  - status: 500
+    type: https://tools.ietf.org/html/rfc9110#section-15.6.1
+    title: An error occurred while processing your request.
+    code: null
+    detail_observed: Value cannot be null. (Parameter 'id')
+    instance_observed: null
+    evidence:
+      url: https://www.centurycommunities.com/api/episerver/v3.0/site/00000000-0000-0000-0000-000000000000
+      status: 500
+      content_type: application/problem+json; charset=utf-8
+    remediation: >-
+      A malformed site identifier is answered with a 500 carrying a .NET argument-validation
+      message rather than a 400. This is a real defect in the deployed surface: the
+      framework exception text is leaked to anonymous callers and the status class is wrong.
+    finding: leaked-exception-detail
+  - status: 404
+    type: null
+    title: null
+    detail_observed: null
+    note: >-
+      A non-numeric content id (/api/episerver/v3.0/content/abc) falls through to the CMS
+      404 page and returns text/html, not application/problem+json. The problem-details
+      contract is therefore not uniform across the same endpoint — clients must branch on
+      Content-Type, not on status code alone.
+    evidence:
+      url: https://www.centurycommunities.com/api/episerver/v3.0/content/abc
+      status: 404
+      content_type: text/html; charset=utf-8
+oauth_errors:
+  format: rfc6749
+  media_type: application/json
+  note: >-
+    The token endpoint uses the OAuth 2.0 error envelope, not problem+json. Implemented by
+    OpenIddict, whose error_uri points at the OpenIddict project documentation rather than
+    at Century Communities.
+  entries:
+    - error: invalid_request
+      error_description: The specified HTTP method is not valid.
+      error_uri: https://documentation.openiddict.com/errors/ID2084
+      evidence:
+        url: https://www.centurycommunities.com/api/episerver/connect/token
+        method: GET
+        status: 400
+    - error: invalid_client
+      error_description: The mandatory 'client_id' parameter is missing.
+      error_uri: https://documentation.openiddict.com/errors/ID2029
+      evidence:
+        url: https://www.centurycommunities.com/api/episerver/connect/token
+        method: POST
+        status: 401
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

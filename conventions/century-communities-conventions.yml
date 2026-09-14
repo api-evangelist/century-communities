@@ -1,0 +1,114 @@
+generated: '2026-09-14'
+method: probed
+source: >-
+  Live unauthenticated requests to https://www.centurycommunities.com/api/episerver/v3.0/*
+  and the OpenID Connect discovery document on the same host, 2026-09-14. Century
+  Communities publishes no developer documentation, so no prose source exists to search;
+  every statement below is an observed response or a value copied from a served document.
+provider: Century Communities
+providerId: century-communities
+surface_summary: >-
+  One machine-callable surface: the Optimizely (Episerver) Content Delivery API v3.0,
+  mounted at https://www.centurycommunities.com/api/episerver/v3.0/. It is read-only to
+  anonymous callers — POST and DELETE against the content collection both return 405 — and
+  it serves the public site's own content tree. An OpenID Connect authorization server sits
+  alongside it at /api/episerver/connect/* for clients Century Communities provisions
+  privately.
+authentication:
+  anonymous_read: true
+  style: OpenID Connect / OAuth 2.0 bearer for the authenticated surface
+  detail: See authentication/century-communities-authentication.yml
+  cross_reference: authentication/century-communities-authentication.yml
+versioning:
+  style: path-segment
+  current: v3.0
+  example: /api/episerver/v3.0/content
+  note: >-
+    v2.0 is not mounted on this deployment — /api/episerver/v2.0/content returns the CMS 404
+    page. Only v3.0 answers.
+  cross_reference: lifecycle/century-communities-lifecycle.yml
+pagination:
+  supported: false
+  observed: >-
+    GET /api/episerver/v3.0/content returns a bare JSON array with no envelope, no cursor,
+    no total, and no Link header. The collection is filtered by query parameter
+    (contentUrl, references) rather than paged.
+  params: []
+  response_fields: []
+field_expansion:
+  supported: true
+  mechanism: >-
+    The `expand` query parameter and the `references` parameter control how deeply
+    contentLink references are inflated; observed in the shape of the returned payloads,
+    where each contentLink carries an `expanded` member that is null unless requested.
+metadata:
+  supported: false
+  note: No customer-supplied metadata surface; this is a content-read API.
+request_id_tracing:
+  supported: true
+  mechanism: >-
+    Every application/problem+json error body carries a `traceId` in W3C Trace Context
+    traceparent format (00-<trace-id>-<span-id>-00). Successful responses carry a
+    `request-context` header naming the Application Insights app id. There is no
+    client-supplied correlation header documented.
+  fields:
+    - traceId
+  headers:
+    - request-context
+caching:
+  supported: true
+  observed:
+    - 'cache-control: public, s-maxage=5, stale-while-revalidate=2'
+    - 'etag: "1040242583" (weak-looking but sent strong)'
+  conditional_requests:
+    supported: true
+    verified: true
+    evidence: >-
+      A repeat GET of /api/episerver/v3.0/site with If-None-Match set to the previously
+      returned ETag answered HTTP 304 on 2026-09-14. Agents can poll this surface cheaply.
+error_envelope:
+  format: rfc9457
+  media_type: application/problem+json
+  uniform: false
+  note: >-
+    Uniform for the numeric-id path, but a non-numeric id falls through to the HTML CMS 404
+    page. Clients must branch on Content-Type.
+  cross_reference: errors/century-communities-problem-types.yml
+rate_limit_signaling:
+  supported: false
+  headers_observed: []
+  status_on_exhaustion: null
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any successful or
+    error response. Cloudflare fronts the origin, so an undocumented edge limit may exist,
+    but the API emits no runtime signal an agent could read.
+  cross_reference: rate-limits/century-communities-rate-limits.yml
+idempotency:
+  coverage: na
+  scope: []
+  mechanism: null
+  note: >-
+    There is no mutating surface to protect. POST to /api/episerver/v3.0/content returned
+    405 and DELETE to /api/episerver/v3.0/content/5 returned 405 on 2026-09-14, and the
+    authorization server's token endpoint is the only other anonymous-reachable POST.
+    Idempotency is not applicable rather than absent.
+reversibility:
+  grade: na
+  note: >-
+    Read-only surface. No write operation exists on the public API, so there is nothing to
+    reverse. Recorded as not-applicable rather than undocumented — asserting a missing
+    reversal path on an API that cannot change state would be a false finding.
+  write_surfaces: []
+  evidence:
+    - url: https://www.centurycommunities.com/api/episerver/v3.0/content
+      method: POST
+      status: 405
+    - url: https://www.centurycommunities.com/api/episerver/v3.0/content/5
+      method: DELETE
+      status: 405
+dry_run_mode:
+  supported: na
+  note: Read-only surface; nothing to rehearse.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

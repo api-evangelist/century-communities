@@ -1,0 +1,46 @@
+generated: '2026-09-14'
+method: probed
+source: https://www.centurycommunities.com/.well-known/openid-configuration
+provider: Century Communities
+providerId: century-communities
+description: >-
+  The scopes below are the verbatim scopes_supported array from the OpenID Connect
+  discovery document Century Communities' own host serves. There is no published scope
+  reference page — the company has no developer portal — so the discovery document is the
+  only authority, and the descriptions are the standard meanings of these identifiers in
+  OpenID Connect and in Optimizely CMS, flagged as such.
+docs: null
+docs_note: >-
+  No first-party scope/permission reference exists. Searched 2026-09-14; Century
+  Communities publishes no developer documentation.
+issuer: https://www.centurycommunities.com/
+flows:
+  - type: authorization_code
+    pkce: S256
+  - type: client_credentials
+  - type: refresh_token
+scopes:
+  - name: openid
+    description: Standard OpenID Connect scope requesting an ID token.
+    standard: OpenID Connect Core 1.0
+  - name: offline_access
+    description: Requests a refresh token so the client can obtain new access tokens without user interaction.
+    standard: OpenID Connect Core 1.0
+  - name: profile
+    description: Releases the end user's basic profile claims.
+    standard: OpenID Connect Core 1.0
+  - name: email
+    description: Releases the end user's email claim.
+    standard: OpenID Connect Core 1.0
+  - name: roles
+    description: Releases the end user's role claims; maps to the `role` claim advertised in claims_supported.
+    standard: Optimizely CMS
+  - name: epi_service_api
+    description: >-
+      Access to the Optimizely (Episerver) Service API — the authenticated content
+      management surface. Vendor-defined scope, not an OpenID Connect standard scope.
+    standard: Optimizely Service API
+scope_count: 6
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

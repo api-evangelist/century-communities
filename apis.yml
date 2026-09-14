@@ -2,65 +2,131 @@ aid: century-communities
 url: https://raw.githubusercontent.com/api-evangelist/century-communities/refs/heads/main/apis.yml
 name: Century Communities
 type: Index
+position: Producing
 deliveryModel:
   model: unknown
   open_source: false
   commercial: false
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
-  source:
-  - none
-  generated: '2026-08-28'
-  method: derived
-accessModel:
-  pricing: enterprise
-  onboarding: unknown
-  trial: false
-  try_now: false
-  public: false
-  label: Enterprise
+  callable_host: true
+  label: >-
+    Not a software vendor — the one callable host is the company's own marketing site,
+    which serves an Optimizely CMS content API anonymously as a by-product
   confidence: medium
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+    - probe
+  generated: '2026-09-14'
+  method: probed
+accessModel:
+  pricing: free
+  onboarding: none
+  trial: false
+  try_now: true
+  public: true
+  label: Free and anonymous, but undocumented and unsupported
+  confidence: medium
+  source:
+    - probe
+  generated: '2026-09-14'
+  method: probed
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/century-communities.png
 tags:
   - Real-Estate
   - Homebuilding
+  - Construction
+  - Content-Management
+  - Consumer
+  - Mortgage
 tags_raw:
   - Real Estate
   - Homebuilding
+  - Construction
+  - Content Management
+  - Consumer
+  - Mortgage
 description: >-
-  Century Communities is a major US corporation and Fortune 1000 company. The Century Communities API provides programmatic access to its platform services, data, and integrations for enterprise customers and partners.
+  Century Communities, Inc. (NYSE: CCS) is one of the largest homebuilders in the United
+  States, building and selling single-family homes across roughly twenty states under the
+  Century Communities and Century Complete brands, with in-house mortgage, title and
+  insurance arms. It runs no developer program: there is no developer portal, no API
+  documentation, no OpenAPI, no SDK and no published pricing or rate limits, and the
+  api. and developer. hosts a previous version of this record carried do not resolve. One
+  machine-readable surface is nonetheless live and anonymous — the Optimizely (Episerver)
+  Content Delivery API v3.0 that the company's own marketing site exposes at
+  /api/episerver/v3.0, alongside an OpenID Connect authorization server on the same host.
+  This profile is built entirely from what those endpoints and the company's public pages
+  actually returned when probed.
 created: '2026-04-19'
-modified: '2026-04-19'
+modified: '2026-09-14'
 specificationVersion: '0.23'
 apis:
-  - aid: century-communities:century-communities-api
-    name: Century Communities API
+  - aid: century-communities:century-communities-content-delivery-api
+    name: Century Communities Content Delivery API
     tags:
+      - Content-Management
       - Real-Estate
       - Homebuilding
     tags_raw:
+      - Content Management
       - Real Estate
       - Homebuilding
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    baseURL: https://api.centurycommunities.com
-    humanURL: https://developer.centurycommunities.com
-    properties:
-      - url: https://developer.centurycommunities.com/docs
-        type: Documentation
+    baseURL: https://www.centurycommunities.com/api/episerver/v3.0
+    humanURL: https://www.centurycommunities.com
     description: >-
-      The Century Communities API provides access to platform services and data for enterprise integration and automation.
+      The Optimizely (Episerver) Content Delivery API v3.0 that Century Communities' public
+      marketing site serves from its own host. It answers without credentials and returns
+      the website's content tree — pages, blocks, assets, and a site definition carrying 60
+      host bindings. Read-only: POST and DELETE to the content collection both return 405.
+      Errors are RFC 9457 problem+json; responses carry ETags and honour If-None-Match with
+      a 304. Century Communities publishes no documentation for it; the software is
+      Optimizely's, the deployment, the data and the host are Century Communities'.
+    properties:
+      - type: Authentication
+        url: authentication/century-communities-authentication.yml
+      - type: OAuthScopes
+        url: scopes/century-communities-scopes.yml
+      - type: ErrorCatalog
+        url: errors/century-communities-problem-types.yml
+      - type: Conventions
+        url: conventions/century-communities-conventions.yml
+      - type: DataModel
+        url: data-model/century-communities-data-model.yml
+      - type: Conformance
+        url: conformance/century-communities-conformance.yml
+      - type: Lifecycle
+        url: lifecycle/century-communities-lifecycle.yml
+      - type: RateLimits
+        url: rate-limits/century-communities-rate-limits.yml
 common:
-  - type: DomainSecurity
-    url: security/century-communities-domain-security.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/century-communities
   - type: Website
     url: https://www.centurycommunities.com
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/century-communities
+  - type: Blog
+    url: https://www.centurycommunities.com/the-front-porch/
+  - type: Support
+    url: https://www.centurycommunities.com/contact/
+  - type: TermsOfService
+    url: https://www.centurycommunities.com/terms-of-use/
+  - type: PrivacyPolicy
+    url: https://www.centurycommunities.com/privacy-policy/
+  - type: WellKnown
+    url: well-known/century-communities-well-known.yml
+  - type: LLMsTxt
+    url: llms/century-communities-llms.txt
+  - type: Packages
+    url: packages/century-communities-packages.yml
+  - type: DomainSecurity
+    url: security/century-communities-domain-security.yml
+  - type: Plans
+    url: plans/century-communities-plans-pricing.yml
+  - type: FinOps
+    url: finops/century-communities-finops.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-14'
+  status: enriched
+  artifacts_added: 13
+  pass: local-v3

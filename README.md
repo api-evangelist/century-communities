@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Century Communities is a major US corporation and Fortune 1000 company. The Century Communities API provides programmatic access to its platform services, data, and integrations for enterprise customers and partners.
+Century Communities, Inc. (NYSE: CCS) is one of the largest homebuilders in the United States, building and selling single-family homes across roughly twenty states under the Century Communities and Century Complete brands, with in-house mortgage, title and insurance arms. It runs no developer program: there is no developer portal, no API documentation, no OpenAPI, no SDK and no published pricing or rate limits. One machine-readable surface is nonetheless live and anonymous — the Optimizely (Episerver) Content Delivery API v3.0 that the company's own marketing site exposes at `/api/episerver/v3.0`, alongside an OpenID Connect authorization server on the same host. This profile is built entirely from what those endpoints and the company's public pages actually returned when probed on 2026-09-14.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/century-communities/refs/heads/main/apis.yml)
 
@@ -77,7 +77,7 @@ Century Communities is a major US corporation and Fortune 1000 company. The Cent
 ## Timestamps
 
 - **Created:** 2026-04-19
-- **Modified:** 2026-04-19
+- **Modified:** 2026-09-14
 
 ## Maintainers
 

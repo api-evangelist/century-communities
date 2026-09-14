@@ -1,0 +1,115 @@
+generated: '2026-09-14'
+method: probed
+source: >-
+  Direct HTTP probes of the RFC 8615 well-known path list against every host this record
+  knows: www.centurycommunities.com, the apex centurycommunities.com, and
+  investors.centurycommunities.com. The two scaffolded hosts previously carried in
+  apis.yml — api.centurycommunities.com and developer.centurycommunities.com — do not
+  resolve (NXDOMAIN on 2026-09-14) and could not be probed.
+provider: Century Communities
+providerId: century-communities
+note: >-
+  Century Communities runs its public site on Optimizely (formerly Episerver) CMS. The two
+  documents that returned real bodies are the OpenID Connect / OAuth 2.0 authorization-server
+  metadata that the Optimizely platform serves from the customer's own host — the issuer
+  declares itself as https://www.centurycommunities.com/ and the endpoints it names are all
+  under that host, so the deployment is Century Communities' even though the software is the
+  vendor's. investors.centurycommunities.com answered HTTP 200 with an HTML Cloudflare
+  interstitial for EVERY /.well-known/* path, including paths that cannot exist; that is a
+  catch-all, not a document, and every path on that host is recorded as a miss.
+hosts:
+  - host: www.centurycommunities.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json;charset=UTF-8
+        file: century-communities-openid-configuration.json
+        note: >-
+          Served after a 301 to the trailing-slash form. Real OIDC discovery document,
+          issuer https://www.centurycommunities.com/.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json;charset=UTF-8
+        file: century-communities-oauth-authorization-server.json
+        note: Byte-identical to the openid-configuration document.
+      - path: /.well-known/jwks
+        status: 200
+        content_type: application/json
+        file: century-communities-jwks.json
+        note: >-
+          Not on the standard probe list; followed from jwks_uri in the discovery document.
+          Two RSA signing keys, RS256, with x5c chains.
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: centurycommunities.com
+    note: Apex 301s to www; the same two documents are served through the redirect.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: century-communities-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: century-communities-oauth-authorization-server.json
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: investors.centurycommunities.com
+    note: >-
+      Q4 Inc investor-relations platform behind a Cloudflare bot challenge. Every path,
+      including /.well-known/*, returns HTTP 200 with the same HTML interstitial. Recorded
+      as a miss on content, not on status code.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: HTML interstitial, not a document — treated as absent.
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        note: HTML interstitial, not a document — treated as absent.
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: HTML interstitial, not a document — treated as absent.
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: HTML interstitial, not a document — treated as absent.
+unresolvable_hosts:
+  - host: api.centurycommunities.com
+    result: NXDOMAIN
+    checked: '2026-09-14'
+  - host: developer.centurycommunities.com
+    result: NXDOMAIN
+    checked: '2026-09-14'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

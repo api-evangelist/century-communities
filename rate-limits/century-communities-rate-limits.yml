@@ -6,30 +6,43 @@ providerId: century-communities
 created: '2026-05-04'
 # Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
 # bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+method: probed
+modified: '2026-09-14'
+reconciled: true
 tags:
   - Real Estate
   - Homebuilding
   - Rate Limiting
-description: Century Communities does not publish a public API or developer documentation, so no rate
-  limit policies are documented. Any partner integrations would carry contract-defined limits.
-notes: No public rate limit documentation was located. Placeholder retained pending partner/enterprise
-  API discovery.
+description: >-
+  Century Communities publishes no rate limits, and its one live API surface emits no
+  runtime rate-limit signal. Re-checked 2026-09-14 by reading the response headers of the
+  Optimizely Content Delivery API the company serves at
+  https://www.centurycommunities.com/api/episerver/v3.0 — an honest zero, observed rather
+  than assumed.
+notes: >-
+  The 2026-05-04 version of this file asserted a "Partner contract limit" and a backoff
+  policy that nobody published; both were scaffold and have been removed. Cloudflare fronts
+  the origin, so an undocumented edge limit may exist, but nothing the API returns tells a
+  client what it is.
+limit_count: 0
 sources:
   - https://www.centurycommunities.com
+  - https://www.centurycommunities.com/api/episerver/v3.0/site
+observed:
+  - url: https://www.centurycommunities.com/api/episerver/v3.0/site
+    status: 200
+    checked: '2026-09-14'
+    rate_limit_headers: []
+    retry_after: false
+    note: >-
+      Response headers were date, content-type, vary, cache-control, etag, set-cookie,
+      strict-transport-security, request-context, x-frame-options, x-content-type-options,
+      accept-ranges, cf-cache-status, cf-ray, alt-svc. No X-RateLimit-*, no RateLimit-*,
+      no Retry-After.
 responseCodes:
-  throttled: 429
-limits:
-  - name: Partner contract limit
-    scope: contract
-    metric: varies
-    limit: see partner agreement
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter and honor any Retry-After header
-      returned by partner endpoints.
+  throttled: null
+limits: []
+policies: []
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,59 @@
+generated: '2026-09-14'
+method: probed
+source: >-
+  Live probes of https://www.centurycommunities.com/api/episerver/v3.0/* and a search of
+  the company's public site on 2026-09-14. Century Communities publishes no changelog,
+  status page, deprecation policy or SLA for any API.
+provider: Century Communities
+providerId: century-communities
+versioning:
+  scheme: path-segment major.minor
+  current: v3.0
+  base: https://www.centurycommunities.com/api/episerver/v3.0
+  policy_published: false
+  evidence:
+    - url: https://www.centurycommunities.com/api/episerver/v3.0/site
+      status: 200
+    - url: https://www.centurycommunities.com/api/episerver/v2.0/content
+      status: 404
+      note: >-
+        The previous major version is not mounted on this deployment. A consumer pinned to
+        v2.0 would have been broken with no announcement Century Communities published,
+        because the company publishes nothing about this surface at all.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No Deprecation or Sunset response header was returned on any probed endpoint, and no
+    deprecation policy page exists. Nothing to point at.
+status_page:
+  published: false
+  probed:
+    - url: https://status.centurycommunities.com
+      result: NXDOMAIN
+      checked: '2026-09-14'
+  note: >-
+    No status.centurycommunities.com, no statuspage.io/instatus/Atlassian-hosted page found
+    for the company on 2026-09-14.
+sla:
+  published: false
+  note: >-
+    No service-level agreement is published. The Content Delivery API is a by-product of the
+    public marketing site and is not sold or supported as a product.
+changelog:
+  published: false
+  note: >-
+    The company's only dated public stream is its marketing blog (The Front Porch) and its
+    investor-relations newsroom. Neither is an API changelog.
+support:
+  api_support_channel: false
+  general_contact: https://www.centurycommunities.com/contact/
+  note: >-
+    There is no developer support channel. The contact page routes to sales, warranty,
+    realtor, trade-partner and media queues.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

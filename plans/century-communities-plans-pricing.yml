@@ -6,38 +6,36 @@ providerId: century-communities
 created: '2026-05-04'
 # Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
 # bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+method: searched
+modified: '2026-09-14'
+reconciled: true
 tags:
   - Real Estate
   - Homebuilding
-description: Century Communities is a Fortune 1000 US homebuilder. As of reconciliation, the company does
-  not publish a public developer portal, API pricing page, or commercial API plan tiers. Any partner-facing
-  data integrations would be negotiated privately.
-notes: No public API pricing or developer portal could be located. Scaffold retained as a placeholder
-  pending discovery of partner/enterprise API terms.
+description: >-
+  Century Communities sells no API. It is a homebuilder with no developer program, no
+  developer portal and no API pricing page of any kind, re-confirmed 2026-09-14. The one
+  live machine-readable surface — the Optimizely Content Delivery API its marketing site
+  serves — is free, anonymous and unmetered because it is a by-product of the website, not
+  a product.
+notes: >-
+  The 2026-05-04 version of this file carried a "Partner / Custom Integration" tier that it
+  itself described as hypothetical. That was scaffold, not a plan the company publishes, and
+  it has been removed. plan_count is 0 — an honest zero, not an omission.
+plan_count: 0
 sources:
   - https://www.centurycommunities.com
-plans:
-  - id: century-communities-partner
-    name: Partner / Custom Integration
-    type: enterprise
-    description: Hypothetical custom partner integration. No public commercial terms; negotiated directly
-      with Century Communities.
-    entries:
-      - label: Custom integration
-        name: custom
-        type: subscription
-        metric: contract
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: contact provider
-        userMultiplied: false
-    elements:
-      - name: Contractual partner terms
+  - https://www.centurycommunities.com/contact/trade-partners/
+evidence:
+  - url: https://www.centurycommunities.com/contact/trade-partners/
+    status: 200
+    note: >-
+      The nearest thing to a partner programme is a trade-partner contact form for
+      subcontractors and suppliers. It offers no data or API terms.
+  - url: https://developer.centurycommunities.com
+    status: 0
+    note: NXDOMAIN — the developer host a prior profile recorded does not exist.
+plans: []
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

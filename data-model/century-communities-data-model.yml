@@ -1,0 +1,134 @@
+generated: '2026-09-14'
+method: derived
+source: >-
+  Derived from live anonymous responses of
+  https://www.centurycommunities.com/api/episerver/v3.0/site,
+  /api/episerver/v3.0/site/{siteId} and /api/episerver/v3.0/content/{id}, probed
+  2026-09-14. There is no OpenAPI to derive from — Century Communities publishes none — so
+  the entity graph below is read from the payloads the API actually returned. Field names
+  are quoted from those payloads; nothing is inferred beyond the reference edges the
+  payloads make explicit.
+provider: Century Communities
+providerId: century-communities
+scope: >-
+  This is the Optimizely (Episerver) content model as Century Communities has configured it,
+  not a homebuilding domain model. The nouns are CMS nouns — Site, Content, ContentType,
+  Language — with the company's own page types layered on top.
+entities:
+  - name: Site
+    endpoint: /api/episerver/v3.0/site
+    identifier: id (GUID)
+    observed_id: e1f2349a-697c-4d20-997b-b6bfc3674dbe
+    observed_name: Century Communites
+    fields:
+      - name
+      - id
+      - contentRoots
+      - languages
+      - hosts
+    note: >-
+      The deployment serves a single site definition carrying 60 host bindings — the
+      brand and regional hostnames Century Communities routes into one CMS instance.
+    relationships:
+      - type: has_many
+        target: Host
+        via: hosts
+      - type: has_many
+        target: Language
+        via: languages
+      - type: has_many
+        target: Content
+        via: contentRoots
+        note: >-
+          Nine named roots observed — globalAssetsRoot, startPage, contentAssetsRoot,
+          rootPage, wasteBasket, "global Settings Root", "exported Catalog Files",
+          "settings Root", sysCampaignRoot. Each is a ContentLink, so each is an entry
+          point into the content tree.
+  - name: Content
+    endpoint: /api/episerver/v3.0/content/{id}
+    identifier: contentLink.id (integer) with contentLink.guidValue (GUID) alongside
+    filters:
+      - contentUrl
+      - references
+      - expand
+    fields:
+      - contentLink
+      - name
+      - language
+      - existingLanguages
+      - masterLanguage
+      - contentType
+      - parentLink
+      - routeSegment
+      - url
+      - changed
+      - created
+      - startPublish
+      - stopPublish
+      - saved
+      - status
+      - category
+    note: >-
+      Beyond this common envelope every content item carries the properties of its own
+      content type. The home page (id 5, type ["Page","HomePage"]) returned ~60 additional
+      properties, many of them ContentLink references to other content.
+    relationships:
+      - type: belongs_to
+        target: Content
+        via: parentLink
+        note: parentLink is itself a ContentLink, which is what makes the content tree walkable.
+      - type: has_one
+        target: ContentType
+        via: contentType
+      - type: has_one
+        target: Language
+        via: language
+      - type: has_many
+        target: Language
+        via: existingLanguages
+      - type: has_many
+        target: Content
+        via: >-
+          any property whose value is a ContentLink — observed on the home page as
+          privacyPolicyPage, bidOnlinePage, mapViewportPage, salesAgentReportPage,
+          adminMapEditorPage, elevationsBlockFolder, geometryFolder,
+          homeownerVerificationDocumentsFolder, marketingCollateralItems and others.
+  - name: ContentLink
+    kind: value-object
+    note: >-
+      The universal reference type. Every edge in this graph is a ContentLink, which is why
+      the `expand` and `references` parameters are the only traversal controls the API
+      offers.
+    fields:
+      - id
+      - workId
+      - guidValue
+      - providerName
+      - url
+      - expanded
+  - name: ContentType
+    kind: value-object
+    representation: array of strings, most general first
+    observed: ['["Page","HomePage"]']
+  - name: Language
+    kind: value-object
+    fields:
+      - link
+      - displayName
+      - name
+    observed: en (English)
+id_schemes:
+  - entity: Content
+    scheme: sequential integer, with a parallel GUID
+    note: >-
+      Integer ids are enumerable and the API answers anonymously, so the whole published
+      content tree is walkable by an agent without credentials. An id that does not exist
+      returns RFC 9457 problem+json; a non-numeric id returns the HTML 404 page.
+  - entity: Site
+    scheme: GUID
+cross_reference:
+  - errors/century-communities-problem-types.yml
+  - conventions/century-communities-conventions.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

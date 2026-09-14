@@ -1,0 +1,45 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  Registry searches on 2026-09-14 against npm (registry.npmjs.org search), PyPI
+  (pypi.org/pypi/century-communities/json -> 404), RubyGems
+  (rubygems.org/api/v1/gems/century-communities.json -> 404), NuGet
+  (azuresearch-usnc.nuget.org query "centurycommunities" -> 0 hits), crates.io and
+  Packagist (0 results), plus a GitHub organisation lookup
+  (api.github.com/orgs/centurycommunities -> 404).
+provider: Century Communities
+providerId: century-communities
+package_count: 0
+packages: []
+note: >-
+  Century Communities publishes no client library on any public registry and operates no
+  GitHub organisation under its own name. There is also nothing to wrap: the only public
+  API surface is the Optimizely Content Delivery API the company's marketing site serves,
+  and Optimizely's own client libraries — not Century Communities' — are what would be used
+  against it. No SDKs pointer is emitted in apis.yml, because emitting one would credit the
+  company with libraries it does not publish.
+searched:
+  - registry: npm
+    query: century-communities
+    result: no first-party package
+  - registry: pypi
+    package: century-communities
+    status: 404
+  - registry: rubygems
+    package: century-communities
+    status: 404
+  - registry: nuget
+    query: centurycommunities
+    total_hits: 0
+  - registry: packagist
+    query: century-communities
+    total_hits: 0
+  - registry: crates.io
+    query: century communities
+    result: no first-party crate
+  - registry: github
+    org: centurycommunities
+    status: 404
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
