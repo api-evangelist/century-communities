@@ -33,7 +33,7 @@ tags:
   - Real-Estate
   - Homebuilding
   - Construction
-  - Content-Management
+  - Content Management
   - Consumer
   - Mortgage
 tags_raw:
@@ -62,7 +62,7 @@ apis:
   - aid: century-communities:century-communities-content-delivery-api
     name: Century Communities Content Delivery API
     tags:
-      - Content-Management
+      - Content Management
       - Real-Estate
       - Homebuilding
     tags_raw:
