@@ -100,6 +100,8 @@ apis:
       - type: RateLimits
         url: rate-limits/century-communities-rate-limits.yml
 common:
+  - type: RateLimits
+    url: rate-limits/century-communities-rate-limits.yml
   - type: Website
     url: https://www.centurycommunities.com
   - type: LinkedIn
