@@ -1,4 +1,4 @@
-# Century Communities (century-communities)
+# Century Communities
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,23 +64,113 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Century Communities, Inc. (NYSE: CCS) is one of the largest homebuilders in the United States, building and selling single-family homes across roughly twenty states under the Century Communities and Century Complete brands, with in-house mortgage, title and insurance arms. It runs no developer program: there is no developer portal, no API documentation, no OpenAPI, no SDK and no published pricing or rate limits. One machine-readable surface is nonetheless live and anonymous — the Optimizely (Episerver) Content Delivery API v3.0 that the company's own marketing site exposes at `/api/episerver/v3.0`, alongside an OpenID Connect authorization server on the same host. This profile is built entirely from what those endpoints and the company's public pages actually returned when probed on 2026-09-14.
+Century Communities, Inc. (NYSE: CCS) is one of the largest homebuilders in the United States, building and selling single-family homes across roughly twenty states under the Century Communities and Century Complete brands, with in-house mortgage, title and insurance arms. It runs no developer program: there is no developer portal, no API documentation, no OpenAPI, no SDK and no published pricing or rate limits, and the api. and developer. hosts a previous version of this record carried do not resolve. One machine-readable surface is nonetheless live and anonymous — the Optimizely (Episerver) Content Delivery API v3.0 that the company's own marketing site exposes at /api/episerver/v3.0, alongside an OpenID Connect authorization server on the same host. This profile is built entirely from what those endpoints and the company's public pages actually returned when probed.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/century-communities/refs/heads/main/apis.yml)
+**Areas:** Real Estate · Homebuilding · Construction · Content Management · Consumer · Mortgage
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Century Communities on APIs.io
 
-## Tags:
+Everything profiled for Century Communities is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/century-communities/](https://apis.io/providers/century-communities/)** — or go straight to one of the APIs or properties below.
 
- - Real Estate, Homebuilding
+### APIs (1)
 
-## Timestamps
+- [Century Communities Content Delivery API](https://apis.io/apis/century-communities/century-communities-content-delivery-api/) — The Optimizely (Episerver) Content Delivery API v3.0 that Century Communities' public marketing site serves from its own host. It answers without…
 
-- **Created:** 2026-04-19
-- **Modified:** 2026-09-14
+### Published properties
 
-## Maintainers
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**FN:** Kin Lane
+#### Security (2)
 
-**Email:** kin@apievangelist.com
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Century Communities Authentication](https://apis.io/security/century-communities/century-communities-authentication/)
+- [Century Communities Domain Security](https://apis.io/security/century-communities/century-communities-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Century Communities Scopes](https://apis.io/scopes/century-communities/century-communities-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Century Communities Plans Pricing](https://apis.io/plans/century-communities/century-communities-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Century Communities Rate Limits](https://apis.io/rate-limits/century-communities/century-communities-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Century Communities Finops](https://apis.io/finops/century-communities/century-communities-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.centurycommunities.com)
+- [Documentation](https://dev.centurycommunities.com/)
+- [Support](https://www.centurycommunities.com/contact/)
+- [Blog](https://www.centurycommunities.com/the-front-porch/)
+- [Terms of service](https://www.centurycommunities.com/terms-of-use/)
+- [Privacy policy](https://www.centurycommunities.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 18.9** — emerging · rubric 0.24.0 · scored 2026-10-20
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.9 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 21.1 |
+
+**Agent readiness 16.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/century-communities/](https://apis.io/providers/century-communities/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Century Communities: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/century-communities/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
